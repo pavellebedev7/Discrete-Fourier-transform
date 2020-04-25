@@ -20,14 +20,14 @@ void FT (float *input, float **output, int size)
     // Frequency Cycle
     for (int k = 0; k < size/2; k++)
     {
-        reSum[k] = 0.;
-        imSum[k] = 0.;
+        reSum[k] = 0;
+        imSum[k] = 0;
         // Point Cycle
         for (int n = 0; n < size; n++)
         {
-            angle    = (-2.*M_PI*k*n/size);
-            reSum[k] = (reSum[k] + input[n] * cos(angle));
-            imSum[k] = (imSum[k] + input[n] * sin(angle));
+            angle     = -2*M_PI*k*n/size;
+            reSum[k] += input[n] * cos(angle);
+            imSum[k] += input[n] * sin(angle);
         }
         output[0][k] = reSum[k]*2/size;
         output[1][k] = imSum[k]*2/size;
@@ -42,12 +42,12 @@ void FT (float *input, float **output, int size)
 // Absolute value
 float abs0(float re, float im)
 {
-    return pow(re*re + im*im, .5);
+    return pow(re*re + im*im, 0.5);
 }
 // Phase
 float phase(float re, float im)
 {
-    return atan2(im, re)*180./M_PI;
+    return atan2(im, re)*180/M_PI;
 }
 /***************************************************************************/
 
@@ -57,7 +57,7 @@ int main()
     int N = 200;
     float x[N];
     for(int i = 0; i < N; i++){
-        x[i] = 10 + 100*sin(50*2*M_PI*i/N);
+        x[i] = 11 + 25.5*sin(20.5*2*M_PI*i/N);
     }
 
     // Memory Allocation
